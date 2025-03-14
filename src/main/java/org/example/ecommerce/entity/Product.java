@@ -1,11 +1,10 @@
 package org.example.ecommerce.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
@@ -19,19 +18,41 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "category_id", nullable = false)
+    private Long categoryId;
+
+    @Column(name = "brand_id", nullable = false)
+    private Long brandId;
+
+    @Column(nullable = false, length = 200)
     private String name;
 
-    @Column(nullable = false)
-    private double price;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @JsonBackReference
-    private Category category;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    @JsonBackReference
-    private Brand brand;
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity = 0;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+//    @PrePersist
+//    public void prePersist() {
+//        createdAt = LocalDateTime.now();
+//        updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate() {
+//        updatedAt = LocalDateTime.now();
+//    }
 }

@@ -1,6 +1,7 @@
 package org.example.ecommerce.dto;
 
 import lombok.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -9,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductRequest {
     private String name;
-    private double price;
+    private BigDecimal price;
     private Long categoryId;
     private Long brandId;
 }

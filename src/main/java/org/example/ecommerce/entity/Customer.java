@@ -2,6 +2,9 @@ package org.example.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,16 +19,37 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "account_id", nullable = false)
+    private Long accountId;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "full_name", nullable = false, length = 100)
+    private String fullName;
 
-    @OneToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Order> orders;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+//    @PrePersist
+//    public void prePersist() {
+//        createdAt = LocalDateTime.now();
+//        updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate() {
+//        updatedAt = LocalDateTime.now();
+//    }
+
+    public enum Gender {
+        MALE, FEMALE, OTHER
+    }
+
 }

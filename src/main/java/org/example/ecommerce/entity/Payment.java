@@ -14,15 +14,31 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "payments")
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String paymentMethod;
-    private BigDecimal amount;
-    private LocalDateTime paymentDate;
+    @Column(name = "order_id", nullable = false)
+    private Long orderId;
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @Column(name = "payment_date")
+    private LocalDateTime paymentDate = LocalDateTime.now();
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    private Method method;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.PENDING;
+
+    public enum Method {
+        CREDIT_CARD, PAYPAL, BANK_TRANSFER, COD
+    }
+
+    public enum Status {
+        PENDING, COMPLETED, FAILED
+    }
 }

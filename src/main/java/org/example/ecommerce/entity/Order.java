@@ -20,13 +20,19 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
-    @Column(nullable = false)
-    private LocalDateTime orderDate;
+    @Column(name = "order_date")
+    private LocalDateTime orderDate = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.PENDING;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal total = BigDecimal.ZERO;
+
+    public enum Status {
+        PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+    }
 }

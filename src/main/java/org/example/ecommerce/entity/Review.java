@@ -3,6 +3,8 @@ package org.example.ecommerce.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -15,14 +17,23 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
+
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
+
+    @Column(nullable = false)
     private Integer rating;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(columnDefinition = "TEXT")
+    private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+//    @PrePersist
+//    public void prePersist() {
+//        createdAt = LocalDateTime.now();
+//    }
 }

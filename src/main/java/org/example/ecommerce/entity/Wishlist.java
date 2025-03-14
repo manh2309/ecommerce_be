@@ -3,6 +3,8 @@ package org.example.ecommerce.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -15,11 +17,17 @@ public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
+
+    @Column(name = "added_at", updatable = false)
+    private LocalDateTime addedAt;
+
+//    @PrePersist
+//    public void prePersist() {
+//        addedAt = LocalDateTime.now();
+//    }
 }
