@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "shipping_addresses")
-public class ShippingAddress {
+public class ShippingAddress extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,12 +46,4 @@ public class ShippingAddress {
 
     @Column(name = "is_default")
     private Boolean isDefault = false;
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-//    @PrePersist
-//    public void prePersist() {
-//        createdAt = LocalDateTime.now();
-//    }
 }

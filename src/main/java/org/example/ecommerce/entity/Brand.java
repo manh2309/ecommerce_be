@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Brand {
+public class Brand extends BaseEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,21 +22,4 @@ public class Brand {
 
         @Column(columnDefinition = "TEXT")
         private String description;
-
-        @Column(name = "created_at", updatable = false)
-        private LocalDateTime createdAt;
-
-        @Column(name = "updated_at")
-        private LocalDateTime updatedAt;
-
-//        @PrePersist
-//        public void prePersist() {
-//                createdAt = LocalDateTime.now();
-//                updatedAt = LocalDateTime.now();
-//        }
-//
-//        @PreUpdate
-//        public void preUpdate() {
-//                updatedAt = LocalDateTime.now();
-//        }
 }

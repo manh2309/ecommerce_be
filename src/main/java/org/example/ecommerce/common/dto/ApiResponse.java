@@ -20,6 +20,13 @@ public class ApiResponse<T> {
             .message(HttpStatus.OK.getReasonPhrase())
             .build();
 
+    public static <T> ApiResponse<T> successOf(HttpStatus status, String message) {
+        return ApiResponse.<T>builder()
+                .statusCode(status.value())
+                .message(message)
+                .build();
+    }
+
     public static <T> ApiResponse<T> successOf(HttpStatus status, String message,  final T response) {
         return ApiResponse.<T>builder()
                 .statusCode(status.value())

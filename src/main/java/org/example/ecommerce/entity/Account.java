@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "accounts")
-public class Account {
+public class Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,16 +42,6 @@ public class Account {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    @PrePersist
-//    public void prePersist() {
-//        createdAt = LocalDateTime.now();
-//        updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate() {
-//        updatedAt = LocalDateTime.now();
-//    }
 //
 //    public enum Role {
 //        ADMIN, CUSTOMER

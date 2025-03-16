@@ -3,13 +3,10 @@ package org.example.ecommerce.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.ecommerce.common.dto.ApiResponse;
 import org.example.ecommerce.dto.ProductRequest;
-import org.example.ecommerce.entity.Product;
 import org.example.ecommerce.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/product")
@@ -17,14 +14,14 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/id")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    @GetMapping("/{productId}")
+    public ApiResponse<?> getProductById(@PathVariable Long productId) {
+        return ApiResponse.successOf(HttpStatus.OK,"Data successfully",productService.getProductById(productId));
     }
 
     @GetMapping("/category/{categoryId}")
-    public List<Product> getProductsByCategory(@PathVariable Long categoryId) {
-        return productService.getProductByCategory(categoryId);
+    public ApiResponse<?> getProductsByCategory(@PathVariable Long categoryId) {
+        return ApiResponse.successOf(HttpStatus.OK, "Data successfully", productService.getProductByCategory(categoryId));
     }
 
     @PostMapping
@@ -33,9 +30,10 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        product.setId(id);
-        productService.updateProduct(product);
+    public ApiResponse<?> updateProduct(@PathVariable Long id, @RequestBody ProductRequest product) {
+        productService.updateProduct(id, product);
+        return ApiResponse.successOf(HttpStatus.OK, "Cap nhat product thanh cong");
+
     }
 
     @DeleteMapping("/{id}")

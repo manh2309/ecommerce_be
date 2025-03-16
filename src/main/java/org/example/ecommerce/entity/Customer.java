@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,17 +36,6 @@ public class Customer {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-//    @PrePersist
-//    public void prePersist() {
-//        createdAt = LocalDateTime.now();
-//        updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate() {
-//        updatedAt = LocalDateTime.now();
-//    }
 
     public enum Gender {
         MALE, FEMALE, OTHER

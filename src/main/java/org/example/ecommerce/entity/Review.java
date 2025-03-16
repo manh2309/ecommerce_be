@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "reviews")
-public class Review {
+public class Review  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,12 +28,4 @@ public class Review {
 
     @Column(columnDefinition = "TEXT")
     private String comment;
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-//    @PrePersist
-//    public void prePersist() {
-//        createdAt = LocalDateTime.now();
-//    }
 }
