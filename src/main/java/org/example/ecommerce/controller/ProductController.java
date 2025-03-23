@@ -30,9 +30,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<?> updateProduct(@PathVariable Long id, @RequestBody ProductRequest product) {
-        productService.updateProduct(id, product);
-        return ApiResponse.successOf(HttpStatus.OK, "Cap nhat product thanh cong");
+    public ApiResponse<Object> updateProduct(@PathVariable Long id, @RequestBody ProductRequest product) {
+        return ApiResponse.success(HttpStatus.OK, productService.updateProduct(id, product), "Cap nhat product thanh cong");
 
     }
 

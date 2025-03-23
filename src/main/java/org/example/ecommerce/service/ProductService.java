@@ -1,5 +1,6 @@
 package org.example.ecommerce.service;
 
+import org.example.ecommerce.common.dto.ApiResponse;
 import org.example.ecommerce.dto.ProductRequest;
 import org.example.ecommerce.dto.response.ProductResponse;
 import org.example.ecommerce.entity.Product;
@@ -13,7 +14,7 @@ public interface ProductService {
 
     Product createProduct(ProductRequest request);
 
-    void updateProduct(Long id, ProductRequest request);
+    ApiResponse<Object> updateProduct(Long id, ProductRequest request);
 
     void deleteProduct(Long id);
 }

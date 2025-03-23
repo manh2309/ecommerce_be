@@ -13,19 +13,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "accounts")
-public class Account extends BaseEntity {
-
+@Table(name = "account_role")
+public class AccountRole extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private Long accountId;
 
-    private String password;
-
-    private String email;
-
-    @Column(name = "is_active")
-    private Boolean isActive = true;
+    private Long roleId;
 }

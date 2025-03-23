@@ -1,11 +1,13 @@
 package org.example.ecommerce.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -13,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,20 +24,20 @@ public class Customer extends BaseEntity {
     @Column(name = "account_id", nullable = false)
     private Long accountId;
 
-    @Column(name = "full_name", nullable = false, length = 100)
+    @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String address;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private String phone;
+
+    private String gender;
 
     public enum Gender {
         MALE, FEMALE, OTHER

@@ -1,6 +1,7 @@
 package org.example.ecommerce.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.ecommerce.common.dto.ApiResponse;
 import org.example.ecommerce.dto.ProductRequest;
 import org.example.ecommerce.dto.response.ProductResponse;
 import org.example.ecommerce.entity.Brand;
@@ -57,7 +58,7 @@ public class ProductSerivceImpl implements ProductService {
         }
 
     @Override
-    public void updateProduct(Long id, ProductRequest request) {
+    public ApiResponse<Object> updateProduct(Long id, ProductRequest request) {
         if(!productRepository.findByName(request.getName()).isEmpty()){
             throw new ApiException(HttpStatus.BAD_REQUEST, "product already exist");
         }
@@ -74,6 +75,12 @@ public class ProductSerivceImpl implements ProductService {
         product.setCategoryId(request.getCategoryId());
         product.setBrandId(request.getBrandId());
         productRepository.save(product);
+
+        return ApiResponse.builder()
+                .statusCode(200)
+                .message("UPDATED")
+                .data(null)
+                .build();
     }
 
     @Override

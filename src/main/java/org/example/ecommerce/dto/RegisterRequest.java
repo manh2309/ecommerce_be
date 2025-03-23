@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.ecommerce.common.validator.ValidPassword;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +14,7 @@ import lombok.Setter;
 public class RegisterRequest {
     @NotBlank(message = "Not blank")
     private String username;
-    @NotBlank(message = "Not blank")
+    @ValidPassword
     private String password;
     private String email;
 }

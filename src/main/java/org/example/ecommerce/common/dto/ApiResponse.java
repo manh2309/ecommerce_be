@@ -6,27 +6,35 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
 public class ApiResponse<T> {
     private int statusCode;
-    private String message;
+    private Object message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
+    private LocalDateTime timestamp;
 
-    public static final ApiResponse<Void> SUCCESS = ApiResponse.<Void>builder()
-            .statusCode(HttpStatus.OK.value())
-            .message(HttpStatus.OK.getReasonPhrase())
-            .build();
-
-    public static <T> ApiResponse<T> successOf(HttpStatus status, String message) {
+    public static <T> ApiResponse<T> success(HttpStatus status,T data, String message) {
         return ApiResponse.<T>builder()
                 .statusCode(status.value())
                 .message(message)
+                .data(data)
+                .timestamp(LocalDateTime.now())
                 .build();
     }
 
+    public static <T> ApiResponse<T> error(HttpStatus status, T data, String message) {
+        return ApiResponse.<T>builder()
+                .statusCode(status.value())
+                .message(message)
+                .data(data)
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
     public static <T> ApiResponse<T> successOf(HttpStatus status, String message,  final T response) {
         return ApiResponse.<T>builder()
                 .statusCode(status.value())
